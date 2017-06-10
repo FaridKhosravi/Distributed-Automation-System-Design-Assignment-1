@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="OUT_ANY_TEST" Comment="Data output to TextField" >
+  <Identification Standard="61499-1" Classification="GUI" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.3" Author="JHC" Date="2009-02-28" Remarks="Updated service sequences." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.2" Author="JHC" Date="2009-02-23" Remarks="Updated compilers." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-05-03" Remarks="Made QI IV=true." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2001-05-31" />
+<CompilerInfo header="package fb.rt.hmi;" >
+  <Compiler Language="Java" Vendor="Sun" Product="JDK" Version="1.6.0" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization" >
+        <With Var="QI" />
+        <With Var="W" />
+        <With Var="TYPE" />
+        <With Var="IVAL" />
+      </Event>
+      <Event Name="REQ" Comment="Request" >
+        <With Var="QI" />
+        <With Var="IN" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm" >
+        <With Var="QO" />
+      </Event>
+      <Event Name="CNF" Comment="Service Confirmation" >
+        <With Var="QO" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" InitialValue="true" Comment="Input event qualifier" />
+      <VarDeclaration Name="IN" Type="ANY" Comment="Output value to convert" />
+      <VarDeclaration Name="W" Type="UINT" InitialValue="10" Comment="TextField width in chars" />
+      <VarDeclaration Name="TYPE" Type="WSTRING" InitialValue="&#34;ANY&#34;" Comment="Data type name" />
+      <VarDeclaration Name="IVAL" Type="WSTRING" Comment="Initial value" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Output event qualifier" />
+    </OutputVars>
+  </InterfaceList>
+  <Service RightInterface="OUT_ANY" LeftInterface="Application" >
+    <ServiceSequence Name="initialize" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="INIT+" Parameters="LABEL" />
+        <OutputPrimitive Interface="OUT_ANY" Event="createTextField" Parameters="W, IVAL" />
+        <OutputPrimitive Interface="OUT_ANY" Event="initIN" Parameters="TYPE" />
+        <OutputPrimitive Interface="Application" Event="INITO+" />
+      </ServiceTransaction>
+    </ServiceSequence>
+    <ServiceSequence Name="field_exists" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="INIT+" Parameters="LABEL" />
+        <OutputPrimitive Interface="OUT_ANY" Event="setText" Parameters="IVAL" />
+        <OutputPrimitive Interface="Application" Event="INITO+" />
+      </ServiceTransaction>
+    </ServiceSequence>
+    <ServiceSequence Name="init_inhibited" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="INIT-" />
+        <OutputPrimitive Interface="Application" Event="INITO-" />
+      </ServiceTransaction>
+    </ServiceSequence>
+    <ServiceSequence Name="request" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="REQ+" Parameters="LABEL" />
+        <OutputPrimitive Interface="OUT_ANY" Event="setText" Parameters="IN.toString()" />
+        <OutputPrimitive Interface="Application" Event="CNF+" />
+      </ServiceTransaction>
+    </ServiceSequence>
+    <ServiceSequence Name="req_uninitialized" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="REQ+" Parameters="LABEL" />
+        <OutputPrimitive Interface="Application" Event="CNF-" />
+      </ServiceTransaction>
+    </ServiceSequence>
+    <ServiceSequence Name="req_inhibited" >
+      <ServiceTransaction >
+        <InputPrimitive Interface="Application" Event="REQ-" Parameters="LABEL" />
+        <OutputPrimitive Interface="Application" Event="CNF-" />
+      </ServiceTransaction>
+    </ServiceSequence>
+  </Service>
+</FBType>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="CNV_LOOP" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="522.2222" y="88.888885" >
+    <Parameter Name="BOUNDS" Value="[0,0,200,300]" />
+    <Resource Name="HMI_RESOURCE" Type="VIEW_PANEL" x="533.3333" y="238.88889" >
+      <Parameter Name="DIA" Value="20" />
+      <Parameter Name="SIZE" Value="[10,15]" />
+    </Resource>
+  </Device>
+  <Device Name="VIEW" Type="FRAME_DEVICE" x="538.88885" y="772.22217" >
+    <Parameter Name="BOUNDS" Value="[200,0,300,300]" />
+    <Resource Name="VIEW_RESOURCE" Type="VIEW_PANEL" x="738.88885" y="322.2222" >
+      <Parameter Name="DIA" Value="20" />
+      <Parameter Name="SIZE" Value="[15,15]" />
+      <FBNetwork >
+        <FB Name="CNV_1" Type="MECH_VIEW" x="494.44443" y="150.0" >
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+        </FB>
+        <FB Name="CNV_2" Type="MECH_VIEW" x="1472.2222" y="544.4444" >
+          <Parameter Name="DIR" Value="VDIR#UP" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+        </FB>
+        <FB Name="CNV_4" Type="MECH_VIEW" x="2994.4443" y="1200.0" >
+          <Parameter Name="DIR" Value="VDIR#LEFT" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+        </FB>
+        <FB Name="CNV_3" Type="MECH_VIEW" x="2488.8887" y="977.7777" >
+          <Parameter Name="DIR" Value="VDIR#DOWN" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+        </FB>
+        <FB Name="SPACE1" Type="XSPACE" x="1061.1111" y="272.2222" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[5,1]" />
+        </FB>
+        <FB Name="SPACE2" Type="XSPACE" x="2038.8888" y="938.88885" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[8,10]" />
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CNV_1.INIT" dx1="55.555553" />
+          <Connection Source="CNV_3.INITO" Destination="CNV_4.INIT" dx1="55.555553" />
+          <Connection Source="CNV_1.INITO" Destination="SPACE1.INIT" dx1="55.555553" />
+          <Connection Source="SPACE1.INITO" Destination="CNV_2.INIT" dx1="55.555553" />
+          <Connection Source="CNV_2.INITO" Destination="SPACE2.INIT" dx1="55.555553" />
+          <Connection Source="SPACE2.INITO" Destination="CNV_3.INIT" dx1="55.555553" />
+        </EventConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="START_STOP_TEST" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="655.55554" y="77.77777" >
+    <Parameter Name="BOUNDS" Value="[0,0,200,200]" />
+    <Parameter Name="GRID" Value="[8,2]" />
+    <Resource Name="CNV1" Type="PANEL_RESOURCE" x="194.44444" y="33.333332" >
+      <FBNetwork >
+        <FB Name="START_PB" Type="IN_EVENT" x="566.6666" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;START&#34;" />
+        </FB>
+        <FB Name="STOP_PB" Type="IN_EVENT" x="1188.8888" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;STOP&#34;" />
+        </FB>
+        <FB Name="STATUS" Type="OUT_EVENT" x="3055.5554" y="350.0" >
+          <Parameter Name="DT" Value="t#500ms" />
+          <Parameter Name="LABEL" Value="&#34;CLOCK TEST CNV1&#34;" />
+          <Parameter Name="FLASH" Value="[255,0,0]" />
+          <Parameter Name="QI" Value="1" />
+        </FB>
+        <FB Name="CLK" Type="E_CYCLE" x="1749.9999" y="683.3333" >
+          <Parameter Name="DT" Value="t#250ms" />
+        </FB>
+        <FB Name="ctu" Type="E_CTD" x="3933.3333" y="611.1111" >
+          <Parameter Name="PV" Value="4" />
+        </FB>
+        <FB Name="counter_value" Type="OUT_ANY" x="4466.6665" y="772.22217" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="IVAL" Value="&#34;hiiiiiiiiiiiii&#34;" />
+          <Parameter Name="W" Value="4" />
+        </FB>
+        <FB Name="out" Type="OUT_TEXT" x="3233.3333" y="2655.5554" >
+        </FB>
+        <FB Name="SPLIT" Type="E_SPLIT" x="2516.6665" y="1438.8888" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="START_PB.INIT" dx1="55.555553" />
+          <Connection Source="START_PB.INITO" Destination="STOP_PB.INIT" dx1="55.555553" />
+          <Connection Source="STOP_PB.IND" Destination="CLK.STOP" dx1="55.555553" />
+          <Connection Source="START_PB.IND" Destination="CLK.START" dx1="55.555553" />
+          <Connection Source="STOP_PB.INITO" Destination="STATUS.INIT" dx1="205.55554" />
+          <Connection Source="CLK.EO" Destination="SPLIT.EI" dx1="55.555553" />
+          <Connection Source="SPLIT.EO1" Destination="STATUS.REQ" dx1="55.555553" />
+          <Connection Source="SPLIT.EO2" Destination="ctu.LD" dx1="816.6666" />
+          <Connection Source="ctu.LDO" Destination="counter_value.REQ" dx1="55.555553" />
+          <Connection Source="STATUS.CNF" Destination="ctu.CD" dx1="55.555553" />
+          <Connection Source="STATUS.INITO" Destination="counter_value.INIT" dx1="877.7778" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="ctu.CV" Destination="counter_value.IN" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <Resource Name="CNV2" Type="PANEL_RESOURCE" x="1283.3333" y="400.0" >
+      <FBNetwork >
+        <FB Name="START_PB" Type="IN_EVENT" x="566.6666" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;START&#34;" />
+        </FB>
+        <FB Name="STOP_PB" Type="IN_EVENT" x="1188.8888" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;STOP&#34;" />
+        </FB>
+        <FB Name="CLK" Type="E_CYCLE" x="1749.9999" y="683.3333" >
+          <Parameter Name="DT" Value="t#250ms" />
+        </FB>
+        <FB Name="ctu" Type="E_CTD" x="3933.3333" y="611.1111" >
+          <Parameter Name="PV" Value="4" />
+        </FB>
+        <FB Name="counter_value" Type="OUT_ANY" x="4466.6665" y="772.22217" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="IVAL" Value="&#34;hiiiiiiiiiiiii&#34;" />
+          <Parameter Name="W" Value="4" />
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="START_PB.INIT" dx1="55.555553" />
+          <Connection Source="START_PB.INITO" Destination="STOP_PB.INIT" dx1="55.555553" />
+          <Connection Source="STOP_PB.IND" Destination="CLK.STOP" dx1="55.555553" />
+          <Connection Source="START_PB.IND" Destination="CLK.START" dx1="55.555553" />
+          <Connection Source="ctu.LDO" Destination="counter_value.REQ" dx1="55.555553" />
+          <Connection Source="CLK.EO" Destination="ctu.LD" dx1="55.555553" />
+          <Connection Source="STOP_PB.INITO" Destination="counter_value.INIT" dx1="1300.0" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="ctu.CV" Destination="counter_value.IN" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

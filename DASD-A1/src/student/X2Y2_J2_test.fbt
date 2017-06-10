@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="X2Y2_J2_test" Comment="Compute X^2-Y^2 in Java with explicit CNF invocation" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.0" Author="JHC" Date="2009-05-12" Remarks="Modified from X2Y2_J as an example of CNF invocation." />
+<CompilerInfo header="package fb.rt.student;" >
+  <Compiler Language="Java" Vendor="Sun" Product="JDK" Version="1.6.0" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" >
+        <With Var="X" />
+        <With Var="Y" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" >
+        <With Var="OUT" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="X" Type="REAL" />
+      <VarDeclaration Name="Y" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC >
+      <ECState Name="START" Comment="Initial State" x="472.2222" y="100.0" >
+      </ECState>
+      <ECState Name="REQ" Comment="Normal execution" x="133.33333" y="427.77777" >
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="472.2222" y="272.2222" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="133.33333" y="100.0" />
+    </ECC>
+  <Algorithm Name="REQ" >
+<Other Language="Java"><![CDATA[OUT.value = (X.value-Y.value)*(X.value+Y.value);
+]]></Other>
+  </Algorithm>
+  </BasicFB>
+</FBType>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="DASD_A1" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="655.55554" y="77.77777" >
+    <Parameter Name="BOUNDS" Value="[0,0,300,300]" />
+    <Resource Name="CNV1" Type="PANEL_RESOURCE" x="638.88885" y="677.7778" >
+      <FBNetwork >
+        <FB Name="CNV1_M" Type="IN_BOOL" x="938.88885" y="433.3333" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;CNV1-MOTOR ON&#34;" />
+        </FB>
+        <FB Name="CNV1_L" Type="IN_EVENT" x="1744.4443" y="433.3333" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;WORKPIECE&#34;" />
+        </FB>
+        <FB Name="CNV1_L_STAT" Type="PUBL_0" x="3283.3333" y="1094.4445" >
+        </FB>
+        <FB Name="CNV1_M_STAT" Type="PUBL_1" x="2644.4443" y="1100.0" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CNV1_M.INIT" dx1="238.88889" />
+          <Connection Source="CNV1_M.INITO" Destination="CNV1_L.INIT" dx1="55.555553" />
+        </EventConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="VIEW" Type="FRAME_DEVICE" x="705.55554" y="1288.8888" >
+    <Parameter Name="BOUNDS" Value="[300,0,300,300]" />
+  </Device>
+  <Device Name="MODEL" Type="FRAME_DEVICE" x="677.7778" y="694.4444" >
+  </Device>
+</System>

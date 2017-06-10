@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="DASD_A1_V2_clktest" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="655.55554" y="77.77777" >
+    <Parameter Name="BOUNDS" Value="[0,0,300,300]" />
+    <Resource Name="CNV1" Type="PANEL_RESOURCE" x="600.0" y="155.55554" >
+      <FBNetwork >
+        <FB Name="CNV1_M" Type="IN_BOOL" x="3399.9998" y="683.3333" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;CNV1-MOTOR ON&#34;" />
+        </FB>
+        <FB Name="CNV1_L" Type="IN_EVENT" x="3933.3333" y="816.6666" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;WORKPIECE&#34;" />
+        </FB>
+        <FB Name="START_PB" Type="IN_EVENT" x="650.0" y="122.22221" >
+        </FB>
+        <FB Name="STOP_PB" Type="IN_EVENT" x="1266.6666" y="133.33333" >
+        </FB>
+        <FB Name="PERIODIC" Type="E_CYCLE" x="1772.2222" y="1705.5555" >
+        </FB>
+        <FB Name="DT" Type="IN_ANY" x="1927.7777" y="161.1111" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="TYPE" Value="&#34;TIME&#34;" />
+          <Parameter Name="IVAL" Value="&#34;t#250ms&#34;" />
+        </FB>
+        <FB Name="FLASHER" Type="FLASHERT" x="2627.7776" y="277.77777" >
+        </FB>
+        <EventConnections>
+          <Connection Source="CNV1_M.INITO" Destination="CNV1_L.INIT" dx1="55.555553" />
+          <Connection Source="START.COLD" Destination="START_PB.INIT" dx1="55.555553" />
+          <Connection Source="START_PB.INITO" Destination="STOP_PB.INIT" dx1="55.555553" />
+          <Connection Source="STOP_PB.INITO" Destination="DT.INIT" dx1="55.555553" />
+          <Connection Source="DT.IND" Destination="PERIODIC.START" dx1="27.777777" dx2="55.555553" dy="1233.3333" />
+          <Connection Source="STOP_PB.IND" Destination="PERIODIC.STOP" dx1="55.555553" />
+          <Connection Source="START_PB.IND" Destination="DT.REQ" dx1="138.88889" />
+          <Connection Source="PERIODIC.EO" Destination="FLASHER.REQ" dx1="300.0" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="DT.OUT" Destination="PERIODIC.DT" dx1="55.555553" dx2="55.555553" dy="1516.6666" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

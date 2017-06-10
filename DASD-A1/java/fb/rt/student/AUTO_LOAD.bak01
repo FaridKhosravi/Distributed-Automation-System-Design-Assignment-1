@@ -1,0 +1,29 @@
+/* Copyright (c)2017 Rockwell Automation. All rights reserved. */
+package fb.rt.student;
+import fb.datatype.*;
+import fb.rt.*;
+import fb.rt.events.*;
+/** FUNCTION_BLOCK AUTO_LOAD (* Composite Function Block Type *)
+  * @author JHC
+  * @version 20170220/JHC - Generated.
+  */
+public class AUTO_LOAD extends fb.rt.FBInstance {
+/** Normal Execution Request */
+public final EventInput REQ = new EventInput(this);
+/** Execution Confirmation */
+public final EventOutput CNF = new EventOutput();
+/** Output event qualifier */
+  public final BOOL QO = new BOOL();
+/** The default constructor. */
+public AUTO_LOAD(){
+    super();
+  }
+/** {@inheritDoc}
+* @param e {@inheritDoc} */
+  public void serviceEvent(EventServer e){
+    if (e == REQ) service_REQ();
+  }
+/** Services the REQ event. */
+  public void service_REQ(){
+  }
+}

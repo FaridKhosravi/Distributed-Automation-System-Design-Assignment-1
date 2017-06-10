@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="MY_XYZ" Comment="Compute X^2-Y^2 in Java" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.2" Author="JHC" Date="2011-08-21" Remarks="Moved algorithm text to a CDATA section." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.1" Author="JHC" Date="2006-09-06" Remarks="Made a SimpleFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2001-10-09" />
+<CompilerInfo header="package fb.rt.student; import fb.rt.math.*;" classdef="SimpleFB" >
+  <Compiler Language="Java" Vendor="IBM" Product="Jikes" Version="1.0.6" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" >
+        <With Var="X" />
+        <With Var="Y" />
+      </Event>
+      <Event Name="XYZ" Type="EVENT" >
+        <With Var="X" />
+        <With Var="Y" />
+        <With Var="Z" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" >
+        <With Var="OUT" />
+      </Event>
+      <Event Name="CNF2" Type="EVENT" >
+        <With Var="OUT2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="X" Type="REAL" />
+      <VarDeclaration Name="Y" Type="REAL" />
+      <VarDeclaration Name="Z" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="REAL" />
+      <VarDeclaration Name="OUT2" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+  <Algorithm Name="REQ" >
+<Other Language="Java"><![CDATA[OUT2.value = (X.value+Y.value+Z.value);]]></Other>
+  </Algorithm>
+  </BasicFB>
+</FBType>

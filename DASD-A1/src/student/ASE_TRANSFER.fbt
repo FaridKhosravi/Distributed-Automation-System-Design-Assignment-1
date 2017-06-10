@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="ASE_TRANSFER" Comment="Composite Function Block Type" >
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWCOMPFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-08" Remarks="Added DLY FB as example." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo header="package fb.rt.student;" >
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request" >
+        <With Var="CNV1_ON" />
+        <With Var="CNV2_ON" />
+        <With Var="CNV1_END" />
+        <With Var="CNV2_END" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation" >
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="CNV1_ON" Type="BOOL" />
+      <VarDeclaration Name="CNV2_ON" Type="BOOL" />
+      <VarDeclaration Name="CNV1_END" Type="BOOL" />
+      <VarDeclaration Name="CNV2_END" Type="BOOL" />
+    </InputVars>
+  </InterfaceList>
+  <FBNetwork >
+    <FB Name="AND1" Type="FB_AND" x="594.4444" y="538.88885" >
+    </FB>
+    <FB Name="AND2" Type="FB_AND" x="1083.3333" y="888.88885" >
+    </FB>
+    <FB Name="AND3" Type="FB_AND" x="1627.7777" y="1222.2222" >
+    </FB>
+    <FB Name="PERMIT" Type="E_PERMIT" x="2166.6665" y="1577.7777" >
+    </FB>
+    <EventConnections>
+      <Connection Source="REQ" Destination="AND1.REQ" />
+      <Connection Source="AND1.CNF" Destination="AND2.REQ" dx1="55.555553" />
+      <Connection Source="AND2.CNF" Destination="AND3.REQ" dx1="55.555553" />
+      <Connection Source="AND3.CNF" Destination="PERMIT.EI" dx1="55.555553" />
+      <Connection Source="PERMIT.EO" Destination="CNF" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="AND1.OUT" Destination="AND2.IN1" dx1="55.555553" />
+      <Connection Source="AND2.OUT" Destination="AND3.IN1" dx1="55.555553" />
+      <Connection Source="AND3.OUT" Destination="PERMIT.PERMIT" dx1="55.555553" />
+      <Connection Source="CNV1_ON" Destination="AND1.IN1" />
+      <Connection Source="CNV1_ON" Destination="AND1.IN2" />
+      <Connection Source="CNV1_END" Destination="AND2.IN2" />
+      <Connection Source="CNV2_END" Destination="AND3.IN2" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

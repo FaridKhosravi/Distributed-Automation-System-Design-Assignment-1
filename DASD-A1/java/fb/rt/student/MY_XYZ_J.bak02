@@ -1,0 +1,31 @@
+/* Copyright (c)2017 Holobloc Inc. All rights reserved. */
+package fb.rt.student; import fb.rt.math.*;
+import fb.datatype.*;
+import fb.rt.*;
+import fb.rt.events.*;
+/** FUNCTION_BLOCK MY_XYZ_J (* Compute X^2-Y^2 in Java *)
+  * @author JHC
+  * @version 20170208/JHC - Generated.
+  */
+public class MY_XYZ_J extends SimpleFB {
+/** VAR X:REAL */
+  public REAL X = new REAL();
+/** VAR Y:REAL */
+  public REAL Y = new REAL();
+/** VAR Z:BOOL */
+  public BOOL Z = new BOOL();
+/** VAR OUT:REAL */
+  public final REAL OUT = new REAL();
+/** VAR OUT2:BOOL */
+  public final BOOL OUT2 = new BOOL();
+/** The default constructor. */
+public MY_XYZ_J(){
+    super();
+  }
+/** {@inheritDoc}
+* @param e {@inheritDoc} */
+public void serviceEvent(EventServer e){
+OUT.value = X.value + Y.value + Z.value;
+      CNF.serviceEvent(this);
+}
+}

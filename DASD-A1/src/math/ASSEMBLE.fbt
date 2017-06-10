@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="ASSEMBLE" >
+  <Identification Standard="61499-1-D.1" Classification="Boolean functions" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2001-08-05" Remarks="XML version" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="1999-02-20" Remarks="SRC version" />
+<CompilerInfo header="package fb.rt.math;" classdef="class FB_AND extends FBFunction2" >
+  <Compiler Language="Java" Vendor="IBM" Product="VisualAge" Version="3.0" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" >
+        <With Var="IN1" />
+        <With Var="IN2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" >
+        <With Var="OUT" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="ANY" />
+      <VarDeclaration Name="IN2" Type="ANY" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="ANY" Comment="Result" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+  <Algorithm Name="REQ" >
+<Other Language="JAVA"><![CDATA[]]></Other>
+  </Algorithm>
+  </BasicFB>
+</FBType>

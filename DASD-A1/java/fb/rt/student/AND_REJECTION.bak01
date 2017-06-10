@@ -1,0 +1,70 @@
+/* Copyright (c)2017 Rockwell Automation. All rights reserved. */
+package fb.rt.student;
+import fb.datatype.*;
+import fb.rt.*;
+import fb.rt.events.*;
+import fb.rt.math.*;
+/** FUNCTION_BLOCK AND_REJECTION (* Composite Function Block Type *)
+  * @author JHC
+  * @version 20170216/JHC - Generated.
+  */
+public class AND_REJECTION extends fb.rt.FBInstance {
+/** Normal Execution Request */
+public final EventOutput REQ = new EventOutput();
+/** Execution Confirmation */
+public final EventOutput CNF = new EventOutput();
+/** FB and:FB_AND */
+  protected FB_AND and = new FB_AND() ;
+/** VAR reject_pb:BOOL */
+  public BOOL reject_pb = new BOOL();
+/** VAR cnv9_end:BOOL */
+  public BOOL cnv9_end = new BOOL();
+/** The default constructor. */
+public AND_REJECTION(){
+    super();
+    REQ.connectTo(and.REQ);
+    and.CNF.connectTo(CNF);
+    and.connectIVNoException("IN1",reject_pb);
+    and.connectIVNoException("IN2",cnv9_end);
+  }
+	/**
+ * {@inheritDoc}
+ * @param newVar {@inheritDoc}
+ */
+@Override
+protected void connectInternal(ANY newVar) {
+  if(newVar == reject_pb)
+    and.connectIVNoException("IN1",reject_pb);
+  if(newVar == cnv9_end)
+    and.connectIVNoException("IN2",cnv9_end);
+}
+/** start the FB instances. */
+public void start( ){
+    super.start();
+  and.start();
+}
+/** stop the FB instances. */
+public void stop( ){
+    super.stop();
+  and.stop();
+}
+/** kill the FB instances. */
+public void kill( ){
+    super.kill();
+  and.kill();
+}
+/** reset the FB instances. */
+public void reset( ){
+    super.reset();
+  and.reset();
+}
+/** {@inheritDoc}
+ * @param fbName {@inheritDoc}
+ * @param r {@inheritDoc}
+ * @throws FBRManagementException {@inheritDoc} */
+  public void initialize(String fbName, Resource r)
+  throws FBRManagementException{
+    super.initialize(fbName,r);
+    and.initialize("and",r);
+}
+}

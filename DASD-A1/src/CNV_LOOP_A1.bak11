@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="CNV_LOOP_A1" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="816.6666" y="127.77777" >
+    <Parameter Name="BOUNDS" Value="[0,0,200,300]" />
+    <Resource Name="CNV1_HMI" Type="PANEL_RESOURCE" x="405.55554" y="388.8889" >
+      <FBNetwork >
+        <FB Name="CNV1_M" Type="IN_BOOL" x="761.1111" y="350.0" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;MOTOR 1&#34;" />
+        </FB>
+        <FB Name="CNV1_L" Type="IN_EVENT" x="1727.7777" y="499.99997" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;WKPC IN&#34;" />
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CNV1_M.INIT" dx1="55.555553" />
+          <Connection Source="CNV1_M.INITO" Destination="CNV1_L.INIT" dx1="55.555553" />
+        </EventConnections>
+      </FBNetwork>
+    </Resource>
+    <Resource Name="ASSEMBLY1_HMI" Type="PANEL_RESOURCE" x="411.11108" y="1044.4445" >
+    </Resource>
+  </Device>
+  <Device Name="VIEW" Type="FRAME_DEVICE" x="833.3333" y="888.88885" >
+    <Parameter Name="BOUNDS" Value="[200,0,300,300]" />
+    <Resource Name="VIEW_RESOURCE" Type="VIEW_PANEL" x="650.0" y="555.55554" >
+      <Parameter Name="DIA" Value="20" />
+      <Parameter Name="SIZE" Value="[15,15]" />
+      <FBNetwork >
+        <FB Name="CNV_1" Type="MECH_VIEW" x="1311.1111" y="44.444443" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+          <Parameter Name="LEN" Value="25" />
+          <Parameter Name="BKGD" Value="[255,0,0]" />
+          <Parameter Name="WKPC" Value="[0,255,0]" />
+          <Parameter Name="STYLE" Value="VSTYLE#RING" />
+        </FB>
+        <FB Name="ASSEMBLY_1" Type="MECH_VIEW" x="2044.4443" y="544.4444" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+          <Parameter Name="LEN" Value="50" />
+          <Parameter Name="BKGD" Value="[0,255,0]" />
+          <Parameter Name="WKPC" Value="[0,255,0]" />
+        </FB>
+        <FB Name="CNV1_P" Type="SUBL_1" x="511.11108" y="361.11108" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CNV_1.INIT" dx1="55.555553" />
+          <Connection Source="CNV_1.INITO" Destination="ASSEMBLY_1.INIT" dx1="166.66666" />
+          <Connection Source="ASSEMBLY_1.INITO" Destination="CNV1_P.INIT" dx1="55.555553" dx2="55.555553" dy="83.33333" />
+          <Connection Source="CNV1_P.IND" Destination="CNV_1.REQ" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CNV1_P.RD_1" Destination="CNV_1.POS" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

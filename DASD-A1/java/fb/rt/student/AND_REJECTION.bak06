@@ -1,0 +1,79 @@
+/* Copyright (c)2017 Rockwell Automation. All rights reserved. */
+package fb.rt.student;
+import fb.datatype.*;
+import fb.rt.*;
+import fb.rt.events.*;
+import fb.rt.math.*;
+/** FUNCTION_BLOCK AND_REJECTION (* Composite Function Block Type *)
+  * @author JHC
+  * @version 20170216/JHC - Generated.
+  */
+public class AND_REJECTION extends fb.rt.FBInstance {
+/** Normal Execution Request */
+public final EventOutput REQ = new EventOutput();
+/** Execution Confirmation */
+public final EventOutput CNF = new EventOutput();
+/** FB and:FB_AND */
+  protected FB_AND and = new FB_AND() ;
+/** FB PERMIT:E_PERMIT */
+  protected E_PERMIT PERMIT = new E_PERMIT() ;
+/** VAR reject_pb:BOOL */
+  public BOOL reject_pb = new BOOL();
+/** VAR cnv5_end:BOOL */
+  public BOOL cnv5_end = new BOOL();
+/** The default constructor. */
+public AND_REJECTION(){
+    super();
+    REQ.connectTo(and.REQ);
+    and.CNF.connectTo(PERMIT.EI);
+    PERMIT.EO.connectTo(CNF);
+    and.connectIVNoException("IN1",reject_pb);
+    and.connectIVNoException("IN2",cnv5_end);
+    PERMIT.connectIVNoException("PERMIT",and.ovNamedNoException("OUT"));
+  }
+	/**
+ * {@inheritDoc}
+ * @param newVar {@inheritDoc}
+ */
+@Override
+protected void connectInternal(ANY newVar) {
+  if(newVar == reject_pb)
+    and.connectIVNoException("IN1",reject_pb);
+  if(newVar == cnv5_end)
+    and.connectIVNoException("IN2",cnv5_end);
+}
+/** start the FB instances. */
+public void start( ){
+    super.start();
+  and.start();
+  PERMIT.start();
+}
+/** stop the FB instances. */
+public void stop( ){
+    super.stop();
+  and.stop();
+  PERMIT.stop();
+}
+/** kill the FB instances. */
+public void kill( ){
+    super.kill();
+  and.kill();
+  PERMIT.kill();
+}
+/** reset the FB instances. */
+public void reset( ){
+    super.reset();
+  and.reset();
+  PERMIT.reset();
+}
+/** {@inheritDoc}
+ * @param fbName {@inheritDoc}
+ * @param r {@inheritDoc}
+ * @throws FBRManagementException {@inheritDoc} */
+  public void initialize(String fbName, Resource r)
+  throws FBRManagementException{
+    super.initialize(fbName,r);
+    and.initialize("and",r);
+    PERMIT.initialize("PERMIT",r);
+}
+}

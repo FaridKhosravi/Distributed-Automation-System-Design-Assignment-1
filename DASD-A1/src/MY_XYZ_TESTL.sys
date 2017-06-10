@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="MY_XYZ_TESTL" Comment="Local Multicast Configuration to test X2Y2" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.1" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2003-08-11" Remarks="Adapted from TESTD_X2Y2." />
+  <Device Name="DEV1" Type="FRAME_DEVICE" x="582.3529" y="129.4118" >
+    <Parameter Name="BOUNDS" Value="[150,150,125,100]" />
+    <Parameter Name="GRID" Value="[1,1]" />
+    <Resource Name="RES1" Type="PANEL_RESOURCE" x="200.0" y="127.77777" >
+      <FBNetwork >
+        <FB Name="IN1" Type="IN_ANY" x="727.7778" y="11.111111" >
+          <Parameter Name="TYPE" Value="&#34;REAL&#34;" />
+          <Parameter Name="IVAL" Value="&#34;10&#34;" />
+        </FB>
+        <FB Name="IN2" Type="IN_ANY" x="1522.2222" y="11.111111" >
+          <Parameter Name="TYPE" Value="&#34;REAL&#34;" />
+          <Parameter Name="IVAL" Value="&#34;20&#34;" />
+        </FB>
+        <FB Name="IN3" Type="IN_ANY" x="2205.5554" y="11.111111" >
+        </FB>
+        <FB Name="XYZ" Type="PUBL_3" x="2805.5554" y="1150.0" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="IN1.INIT" dx1="29.4118" />
+          <Connection Source="START.WARM" Destination="IN1.INIT" dx1="29.4118" />
+          <Connection Source="IN1.INITO" Destination="IN2.INIT" dx1="100.0" />
+          <Connection Source="IN2.INITO" Destination="IN3.INIT" dx1="55.555553" />
+          <Connection Source="IN3.INITO" Destination="XYZ.INIT" dx1="216.66666" />
+          <Connection Source="IN1.IND" Destination="XYZ.REQ" dx1="172.22221" />
+          <Connection Source="IN2.IND" Destination="XYZ.REQ" dx1="155.55554" />
+          <Connection Source="IN3.IND" Destination="XYZ.REQ" dx1="116.666664" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="IN1.OUT" Destination="XYZ.SD_1" dx1="55.555553" />
+          <Connection Source="IN2.OUT" Destination="XYZ.SD_2" dx1="55.555553" />
+          <Connection Source="IN3.OUT" Destination="XYZ.SD_3" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="DEV2" Type="FRAME_DEVICE" x="1641.1764" y="100.0" >
+    <Parameter Name="BOUNDS" Value="[150,250,125,75]" />
+    <Parameter Name="GRID" Value="[1,1]" />
+    <Resource Name="RES2" Type="PANEL_RESOURCE" x="582.3529" y="411.7647" >
+      <FBNetwork >
+        <FB Name="OUT" Type="OUT_ANY" x="1972.2222" y="0.0" >
+          <Parameter Name="TYPE" Value="&#34;REAL&#34;" />
+        </FB>
+        <FB Name="TESTEE" Type="MY_XYZ_J" x="1300.0" y="205.55554" >
+        </FB>
+        <FB Name="XYZ" Type="SUBL_3" x="594.4444" y="11.111111" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="XYZ.INIT" dx1="55.555553" dx2="55.555553" dy="1116.6666" />
+          <Connection Source="START.WARM" Destination="XYZ.INIT" dx1="55.555553" dx2="55.555553" dy="1005.55554" />
+          <Connection Source="XYZ.INITO" Destination="OUT.INIT" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="XYZ.RD_1" Destination="TESTEE.X" dx1="155.55554" />
+          <Connection Source="XYZ.RD_2" Destination="TESTEE.Y" dx1="100.0" />
+          <Connection Source="XYZ.RD_3" Destination="TESTEE.Z" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

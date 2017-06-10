@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="CNV_LOOP_MV" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="522.2222" y="88.888885" >
+    <Parameter Name="BOUNDS" Value="[0,0,200,300]" />
+    <Resource Name="CNV1_HMI" Type="PANEL_RESOURCE" x="116.666664" y="611.1111" >
+    </Resource>
+    <Resource Name="CNV2_HMI" Type="PANEL_RESOURCE" x="861.1111" y="655.55554" >
+    </Resource>
+    <Resource Name="CNV3_HMI" Type="PANEL_RESOURCE" x="150.0" y="1355.5555" >
+    </Resource>
+    <Resource Name="CNV4_HMI" Type="PANEL_RESOURCE" x="988.88885" y="1377.7777" >
+    </Resource>
+  </Device>
+  <Device Name="VIEW" Type="FRAME_DEVICE" x="538.88885" y="772.22217" >
+    <Parameter Name="BOUNDS" Value="[200,0,300,300]" />
+    <Resource Name="VIEW_RESOURCE" Type="VIEW_PANEL" x="738.88885" y="322.2222" >
+      <Parameter Name="DIA" Value="20" />
+      <Parameter Name="SIZE" Value="[15,15]" />
+      <FBNetwork >
+        <FB Name="CNV_1" Type="MECH_VIEW" x="494.44443" y="150.0" >
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="STYLE" Value="VSTYLE#DISC" />
+          <Parameter Name="WKPC" Value="[255,255,255]" />
+        </FB>
+        <FB Name="CNV_2" Type="MECH_VIEW" x="1472.2222" y="544.4444" >
+          <Parameter Name="DIR" Value="VDIR#UP" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="STYLE" Value="VSTYLE#PALLET" />
+          <Parameter Name="WKPC" Value="[255,0,0]" />
+        </FB>
+        <FB Name="CNV_4" Type="MECH_VIEW" x="2994.4443" y="1200.0" >
+          <Parameter Name="DIR" Value="VDIR#LEFT" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="STYLE" Value="VSTYLE#RING" />
+          <Parameter Name="BKGD" Value="[255,255,0]" />
+        </FB>
+        <FB Name="CNV_3" Type="MECH_VIEW" x="2488.8887" y="977.7777" >
+          <Parameter Name="DIR" Value="VDIR#DOWN" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="STYLE" Value="VSTYLE#RING" />
+          <Parameter Name="WKPC" Value="[0,255,0]" />
+        </FB>
+        <FB Name="SPACE1" Type="XSPACE" x="1061.1111" y="272.2222" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[5,1]" />
+        </FB>
+        <FB Name="SPACE2" Type="XSPACE" x="2038.8888" y="938.88885" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[8,10]" />
+          <Parameter Name="LBLS" Value="&#34;CNV2, CNV1, CNV3, CNV4&#34;" />
+        </FB>
+        <FB Name="SPACE3" Type="XSPACE" x="3711.111" y="1711.1111" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[5,1]" />
+        </FB>
+        <FB Name="CNV1_P" Type="SUBL_1" x="638.88885" y="2038.8888" >
+        </FB>
+        <FB Name="CNV2_P" Type="SUBL_1" x="1127.7777" y="2255.5554" >
+        </FB>
+        <FB Name="CNV3_P" Type="SUBL_1" x="1699.9999" y="2455.5554" >
+        </FB>
+        <FB Name="CNV4_P" Type="SUBL_1" x="2261.111" y="2572.2222" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CNV_1.INIT" dx1="55.555553" />
+          <Connection Source="CNV_3.INITO" Destination="CNV_4.INIT" dx1="55.555553" />
+          <Connection Source="CNV_1.INITO" Destination="SPACE1.INIT" dx1="55.555553" />
+          <Connection Source="SPACE1.INITO" Destination="CNV_2.INIT" dx1="55.555553" />
+          <Connection Source="CNV_2.INITO" Destination="SPACE2.INIT" dx1="55.555553" />
+          <Connection Source="SPACE2.INITO" Destination="CNV_3.INIT" dx1="55.555553" />
+          <Connection Source="CNV_4.INITO" Destination="SPACE3.INIT" dx1="55.555553" />
+          <Connection Source="SPACE3.INITO" Destination="CNV1_P.INIT" dx1="55.555553" dx2="55.555553" dy="411.11108" />
+          <Connection Source="CNV1_P.INITO" Destination="CNV2_P.INIT" dx1="55.555553" />
+          <Connection Source="CNV3_P.INITO" Destination="CNV4_P.INIT" dx1="55.555553" />
+          <Connection Source="CNV2_P.INITO" Destination="CNV3_P.INIT" dx1="55.555553" />
+          <Connection Source="CNV1_P.IND" Destination="CNV_1.REQ" dx1="55.555553" dx2="55.555553" dy="83.33333" />
+          <Connection Source="CNV2_P.IND" Destination="CNV_2.REQ" dx1="55.555553" />
+          <Connection Source="CNV3_P.IND" Destination="CNV_3.REQ" dx1="55.555553" />
+          <Connection Source="CNV4_P.IND" Destination="CNV_4.REQ" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CNV1_P.RD_1" Destination="CNV_1.POS" dx1="55.555553" dx2="55.555553" dy="83.33333" />
+          <Connection Source="CNV2_P.RD_1" Destination="CNV_2.POS" dx1="55.555553" />
+          <Connection Source="CNV3_P.RD_1" Destination="CNV_3.POS" dx1="55.555553" />
+          <Connection Source="CNV4_P.RD_1" Destination="CNV_4.POS" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="MY_XYZ" Comment="Compute X^2-Y^2 in Java" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.2" Author="JHC" Date="2011-08-21" Remarks="Moved algorithm text to a CDATA section." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.1" Author="JHC" Date="2006-09-06" Remarks="Made a SimpleFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2001-10-09" />
+<CompilerInfo header="package fb.rt.student; import fb.rt.math.*;" >
+  <Compiler Language="Java" Vendor="IBM" Product="Jikes" Version="1.0.6" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" >
+        <With Var="X" />
+        <With Var="Y" />
+      </Event>
+      <Event Name="XYZ" Type="EVENT" >
+        <With Var="X" />
+        <With Var="Y" />
+        <With Var="Z" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" >
+        <With Var="OUT" />
+      </Event>
+      <Event Name="CNF2" Type="EVENT" >
+        <With Var="OUT2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="X" Type="REAL" />
+      <VarDeclaration Name="Y" Type="REAL" />
+      <VarDeclaration Name="Z" Type="REAL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="REAL" />
+      <VarDeclaration Name="OUT2" Type="REAL" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC >
+      <ECState Name="START" x="311.11108" y="311.11108" >
+      </ECState>
+      <ECState Name="REQ" x="688.88885" y="727.7778" >
+        <ECAction Algorithm="REQ" Output="CNF" />
+      </ECState>
+      <ECState Name="XYZ" x="533.3333" y="1316.6666" >
+        <ECAction Algorithm="XYZ" Output="CNF2" />
+      </ECState>
+      <ECTransition Source="START" Destination="REQ" Condition="REQ" x="311.11108" y="727.7778" />
+      <ECTransition Source="REQ" Destination="START" Condition="1" x="688.88885" y="311.11108" />
+      <ECTransition Source="START" Destination="XYZ" Condition="1" x="72.22222" y="944.4444" />
+      <ECTransition Source="XYZ" Destination="START" Condition="1" x="533.3333" y="811.1111" />
+    </ECC>
+  <Algorithm Name="REQ" >
+<Other Language="Java"><![CDATA[OUT.value = (X.value+Y.value);]]></Other>
+  </Algorithm>
+  <Algorithm Name="XYZ" >
+<Other Language="Java"><![CDATA[OUT2.value = X.value + Y.value + Z.value;]]></Other>
+  </Algorithm>
+  </BasicFB>
+</FBType>

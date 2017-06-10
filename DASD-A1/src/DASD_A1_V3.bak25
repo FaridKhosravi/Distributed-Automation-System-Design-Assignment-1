@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="DASD_A1_V3" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+  <Device Name="HMI" Type="FRAME_DEVICE" x="655.55554" y="77.77777" >
+    <Parameter Name="BOUNDS" Value="[0,0,300,300]" />
+    <Resource Name="CNV1" Type="PANEL_RESOURCE" x="200.0" y="261.1111" >
+      <FBNetwork >
+        <FB Name="START_PB" Type="IN_EVENT" x="566.6666" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;START&#34;" />
+        </FB>
+        <FB Name="STOP_PB" Type="IN_EVENT" x="1188.8888" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;STOP&#34;" />
+        </FB>
+        <FB Name="DT" Type="IN_ANY_LBL" x="1699.9999" y="294.44443" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="TYPE" Value="&#34;TIME&#34;" />
+          <Parameter Name="IVAL" Value="&#34;t#200ms&#34;" />
+          <Parameter Name="LABEL" Value="&#34;MOTOR SPEED&#34;" />
+        </FB>
+        <FB Name="DISP" Type="OUT_EVENT" x="3683.3333" y="194.44444" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="DT" Value="t#500ms" />
+        </FB>
+        <FB Name="CNV1_SPEED_STAT" Type="PUBL_1" x="2405.5554" y="422.2222" >
+        </FB>
+        <FB Name="CLK_CNV1_STOP" Type="PUBL_0" x="1883.3333" y="1605.5555" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="START_PB.INIT" dx1="55.555553" />
+          <Connection Source="START_PB.INITO" Destination="STOP_PB.INIT" dx1="55.555553" />
+          <Connection Source="STOP_PB.INITO" Destination="DT.INIT" dx1="55.555553" />
+          <Connection Source="START_PB.IND" Destination="DT.REQ" dx1="55.555553" />
+          <Connection Source="DT.INITO" Destination="CNV1_SPEED_STAT.INIT" dx1="55.555553" />
+          <Connection Source="DT.IND" Destination="CNV1_SPEED_STAT.REQ" dx1="55.555553" />
+          <Connection Source="CNV1_SPEED_STAT.INITO" Destination="CLK_CNV1_STOP.INIT" dx1="55.555553" dx2="55.555553" dy="1266.6666" />
+          <Connection Source="STOP_PB.IND" Destination="CLK_CNV1_STOP.REQ" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="DT.OUT" Destination="CNV1_SPEED_STAT.SD_1" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="MODEL" Type="FRAME_DEVICE" x="677.7778" y="694.4444" >
+    <Resource Name="CNV1" Type="PANEL_RESOURCE" x="138.88889" y="100.0" >
+      <FBNetwork >
+        <FB Name="CLK_CNV1_P" Type="SUBL_0" x="694.4444" y="605.55554" >
+        </FB>
+        <FB Name="CNV1_MODEL" Type="CNV_MDL" x="3094.4443" y="211.1111" >
+          <Parameter Name="WKPC" Value="[255,0,0]" />
+          <Parameter Name="STYLE" Value="VSTYLE#DISC" />
+          <Parameter Name="LPOS" Value="0" />
+          <Parameter Name="VF" Value="10" />
+        </FB>
+        <FB Name="CNV1_M_STAT" Type="SUBL_1" x="1466.6666" y="1816.6666" >
+        </FB>
+        <FB Name="CNV1_L_STAT" Type="SUBL_0" x="2177.7776" y="1977.7777" >
+        </FB>
+        <FB Name="CNV1_VIEW_VAL" Type="PUBL_3" x="4122.222" y="100.0" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CLK_CNV1_P.INIT" dx1="55.555553" />
+          <Connection Source="CLK_CNV1_P.IND" Destination="CNV1_MODEL.CLK" dx1="227.77777" />
+          <Connection Source="CLK_CNV1_P.INITO" Destination="CNV1_M_STAT.INIT" dx1="55.555553" dx2="55.555553" dy="1116.6666" />
+          <Connection Source="CNV1_M_STAT.INITO" Destination="CNV1_L_STAT.INIT" dx1="55.555553" />
+          <Connection Source="CNV1_L_STAT.IND" Destination="CNV1_MODEL.LOAD" dx1="122.22221" dx2="55.555553" dy="83.33333" />
+          <Connection Source="CNV1_L_STAT.INITO" Destination="CNV1_VIEW_VAL.INIT" dx1="1127.7777" />
+          <Connection Source="CNV1_MODEL.INDR" Destination="CNV1_VIEW_VAL.REQ" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CNV1_M_STAT.RD_1" Destination="CNV1_MODEL.MTR_ON" dx1="161.1111" />
+          <Connection Source="CNV1_MODEL.POS" Destination="CNV1_VIEW_VAL.SD_1" dx1="55.555553" />
+          <Connection Source="CNV1_MODEL.STYLO" Destination="CNV1_VIEW_VAL.SD_2" dx1="177.77777" />
+          <Connection Source="CNV1_MODEL.WKPO" Destination="CNV1_VIEW_VAL.SD_3" dx1="300.0" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <Resource Name="CNV1_CLK" Type="PANEL_RESOURCE" x="144.44444" y="727.7778" >
+      <FBNetwork >
+        <FB Name="CLK" Type="E_CYCLE" x="1849.9999" y="633.3333" >
+        </FB>
+        <FB Name="CLK_OUT" Type="OUT_EVENT" x="3138.8887" y="427.77777" >
+          <Parameter Name="DT" Value="t#500ms" />
+          <Parameter Name="LABEL" Value="&#34;CLOCK TEST CNV1&#34;" />
+          <Parameter Name="FLASH" Value="[255,0,0]" />
+          <Parameter Name="QI" Value="1" />
+        </FB>
+        <FB Name="CNV1_SPEED_STAT" Type="SUBL_1" x="1072.2222" y="144.44444" >
+        </FB>
+        <FB Name="SPLIT" Type="E_SPLIT" x="483.3333" y="166.66666" >
+        </FB>
+        <FB Name="CLK_CNV1_STOP" Type="SUBL_0" x="1300.0" y="1572.2222" >
+        </FB>
+        <EventConnections>
+          <Connection Source="CLK.EO" Destination="CLK_OUT.REQ" dx1="55.555553" />
+          <Connection Source="START.COLD" Destination="SPLIT.EI" dx1="55.555553" />
+          <Connection Source="SPLIT.EO1" Destination="CNV1_SPEED_STAT.INIT" dx1="55.555553" />
+          <Connection Source="SPLIT.EO2" Destination="CLK_OUT.INIT" dx1="55.555553" />
+          <Connection Source="CNV1_SPEED_STAT.IND" Destination="CLK.START" dx1="238.88889" />
+          <Connection Source="CLK_OUT.INITO" Destination="CLK_CNV1_STOP.INIT" dx1="55.555553" dx2="55.555553" dy="1227.7777" />
+          <Connection Source="CLK_CNV1_STOP.IND" Destination="CLK.STOP" dx1="55.555553" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CNV1_SPEED_STAT.RD_1" Destination="CLK.DT" dx1="55.555553" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="VIEW" Type="FRAME_DEVICE" x="705.55554" y="1288.8888" >
+    <Parameter Name="BOUNDS" Value="[300,0,800,1000]" />
+    <Resource Name="VIEW_RESOURCE" Type="VIEW_PANEL" x="1111.1111" y="1100.0" >
+      <Parameter Name="DIA" Value="20" />
+      <Parameter Name="SIZE" Value="[40,50]" />
+      <FBNetwork >
+        <FB Name="CNV1_VIEW" Type="MECH_VIEW" x="1655.5555" y="22.222221" >
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+        </FB>
+        <FB Name="CNV1_VIEW_VAL" Type="SUBL_3" x="861.1111" y="277.77777" >
+        </FB>
+        <FB Name="CNV2_VIEW" Type="MECH_VIEW" x="3449.9998" y="27.777777" >
+          <Parameter Name="LEN" Value="10" />
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIR" Value="VDIR#RIGHT" />
+        </FB>
+        <FB Name="CNV2_VIEW_VAL" Type="SUBL_3" x="2816.6665" y="333.3333" >
+        </FB>
+        <FB Name="SPACE1" Type="XSPACE" x="461.11108" y="94.44444" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[50,1]" />
+          <Parameter Name="COLORS" Value="[WHITE,RED]" />
+        </FB>
+        <FB Name="ASSEMBLY" Type="XSPACE" x="2338.889" y="27.777777" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[4,4]" />
+          <Parameter Name="COLORS" Value="[WHITE,RED]" />
+        </FB>
+        <FB Name="WELDING" Type="XSPACE" x="5194.4443" y="2305.5554" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[4,4]" />
+          <Parameter Name="COLORS" Value="[WHITE,RED]" />
+        </FB>
+        <FB Name="PAINTING" Type="XSPACE" x="4188.8887" y="33.333332" >
+          <Parameter Name="DIA" Value="20" />
+          <Parameter Name="DIMS" Value="[15,4]" />
+          <Parameter Name="COLORS" Value="[WHITE,GREEN]" />
+        </FB>
+        <EventConnections>
+          <Connection Source="CNV1_VIEW_VAL.IND" Destination="CNV1_VIEW.REQ" dx1="211.1111" />
+          <Connection Source="CNV1_VIEW.INITO" Destination="CNV1_VIEW_VAL.INIT" dx1="55.555553" dx2="55.555553" dy="433.3333" />
+          <Connection Source="CNV2_VIEW_VAL.IND" Destination="CNV2_VIEW.REQ" dx1="183.33333" />
+          <Connection Source="CNV2_VIEW.INITO" Destination="CNV2_VIEW_VAL.INIT" dx1="55.555553" dx2="55.555553" dy="527.7778" />
+          <Connection Source="START.COLD" Destination="SPACE1.INIT" dx1="55.555553" />
+          <Connection Source="SPACE1.INITO" Destination="CNV1_VIEW.INIT" dx1="55.555553" />
+          <Connection Source="CNV1_VIEW_VAL.INITO" Destination="ASSEMBLY.INIT" dx1="994.4444" />
+          <Connection Source="ASSEMBLY.INITO" Destination="CNV2_VIEW.INIT" dx1="55.555553" />
+          <Connection Source="CNV2_VIEW_VAL.INITO" Destination="PAINTING.INIT" dx1="816.6666" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CNV1_VIEW_VAL.RD_1" Destination="CNV1_VIEW.POS" dx1="55.555553" />
+          <Connection Source="CNV1_VIEW_VAL.RD_2" Destination="CNV1_VIEW.STYLE" dx1="194.44444" />
+          <Connection Source="CNV1_VIEW_VAL.RD_3" Destination="CNV1_VIEW.WKPC" dx1="333.3333" />
+          <Connection Source="CNV2_VIEW_VAL.RD_1" Destination="CNV2_VIEW.POS" dx1="55.555553" />
+          <Connection Source="CNV2_VIEW_VAL.RD_2" Destination="CNV2_VIEW.STYLE" dx1="105.55555" />
+          <Connection Source="CNV2_VIEW_VAL.RD_3" Destination="CNV2_VIEW.WKPC" dx1="172.22221" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>

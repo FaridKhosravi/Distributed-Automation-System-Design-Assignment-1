@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="ASE_TRANSFER" Comment="Composite Function Block Type" >
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWCOMPFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-08" Remarks="Added DLY FB as example." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo header="package fb.rt.student;" >
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request" >
+        <With Var="CNV1_ON" />
+        <With Var="CNV2_ON" />
+        <With Var="CNV1_END" />
+        <With Var="CNV2_END" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation" >
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="CNV1_ON" Type="BOOL" />
+      <VarDeclaration Name="CNV2_ON" Type="BOOL" />
+      <VarDeclaration Name="CNV1_END" Type="BOOL" />
+      <VarDeclaration Name="CNV2_END" Type="BOOL" />
+    </InputVars>
+  </InterfaceList>
+  <FBNetwork >
+    <FB Name="DLY" Type="E_DELAY" x="1105.8823" y="458.8235" >
+    </FB>
+  </FBNetwork>
+</FBType>

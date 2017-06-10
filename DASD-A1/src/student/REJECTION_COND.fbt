@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="REJECTION_COND" Comment="Composite Function Block Type" >
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWCOMPFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-08" Remarks="Added DLY FB as example." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo header="package fb.rt.student;" >
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request" >
+        <With Var="REJECT_PB" />
+        <With Var="CNV5_END" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation" >
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="REJECT_PB" Type="BOOL" />
+      <VarDeclaration Name="CNV5_END" Type="BOOL" />
+    </InputVars>
+  </InterfaceList>
+  <FBNetwork >
+    <FB Name="NOT" Type="FB_NOT" x="861.1111" y="983.3333" >
+    </FB>
+    <FB Name="AND" Type="FB_AND" x="1438.8888" y="1144.4445" >
+    </FB>
+    <FB Name="PERMIT" Type="E_PERMIT" x="2011.1111" y="1494.4443" >
+    </FB>
+    <EventConnections>
+      <Connection Source="REQ" Destination="NOT.REQ" />
+      <Connection Source="NOT.CNF" Destination="AND.REQ" dx1="55.555553" />
+      <Connection Source="AND.CNF" Destination="PERMIT.EI" dx1="55.555553" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="REJECT_PB" Destination="NOT.IN" />
+      <Connection Source="NOT.OUT" Destination="AND.IN1" dx1="55.555553" />
+      <Connection Source="CNV5_END" Destination="AND.IN2" />
+      <Connection Source="AND.OUT" Destination="PERMIT.PERMIT" dx1="55.555553" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

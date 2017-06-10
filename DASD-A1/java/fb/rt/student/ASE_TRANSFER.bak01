@@ -1,0 +1,107 @@
+/* Copyright (c)2017 Rockwell Automation. All rights reserved. */
+package fb.rt.student;
+import fb.datatype.*;
+import fb.rt.*;
+import fb.rt.events.*;
+import fb.rt.math.*;
+/** FUNCTION_BLOCK ASE_TRANSFER (* Composite Function Block Type *)
+  * @author JHC
+  * @version 20170213/JHC - Generated.
+  */
+public class ASE_TRANSFER extends fb.rt.FBInstance {
+/** Normal Execution Request */
+public final EventOutput REQ = new EventOutput();
+/** Execution Confirmation */
+public final EventOutput CNF = new EventOutput();
+/** FB AND1:FB_AND */
+  protected FB_AND AND1 = new FB_AND() ;
+/** FB AND2:FB_AND */
+  protected FB_AND AND2 = new FB_AND() ;
+/** FB AND3:FB_AND */
+  protected FB_AND AND3 = new FB_AND() ;
+/** FB PERMIT:E_PERMIT */
+  protected E_PERMIT PERMIT = new E_PERMIT() ;
+/** VAR CNV1_ON:BOOL */
+  public BOOL CNV1_ON = new BOOL();
+/** VAR CNV2_ON:BOOL */
+  public BOOL CNV2_ON = new BOOL();
+/** VAR CNV1_END:BOOL */
+  public BOOL CNV1_END = new BOOL();
+/** VAR CNV2_END:BOOL */
+  public BOOL CNV2_END = new BOOL();
+/** The default constructor. */
+public ASE_TRANSFER(){
+    super();
+    REQ.connectTo(AND1.REQ);
+    AND1.CNF.connectTo(AND2.REQ);
+    AND2.CNF.connectTo(AND3.REQ);
+    AND3.CNF.connectTo(PERMIT.EI);
+    PERMIT.EO.connectTo(CNF);
+    AND2.connectIVNoException("IN1",AND1.ovNamedNoException("OUT"));
+    AND3.connectIVNoException("IN1",AND2.ovNamedNoException("OUT"));
+    PERMIT.connectIVNoException("PERMIT",AND3.ovNamedNoException("OUT"));
+    AND1.connectIVNoException("IN1",CNV1_ON);
+    AND1.connectIVNoException("IN2",CNV1_ON);
+    AND2.connectIVNoException("IN2",CNV1_END);
+    AND3.connectIVNoException("IN2",CNV2_END);
+  }
+	/**
+ * {@inheritDoc}
+ * @param newVar {@inheritDoc}
+ */
+@Override
+protected void connectInternal(ANY newVar) {
+  if(newVar == CNV1_ON)
+    AND1.connectIVNoException("IN1",CNV1_ON);
+  if(newVar == CNV1_ON)
+    AND1.connectIVNoException("IN2",CNV1_ON);
+  if(newVar == CNV1_END)
+    AND2.connectIVNoException("IN2",CNV1_END);
+  if(newVar == CNV2_END)
+    AND3.connectIVNoException("IN2",CNV2_END);
+}
+/** start the FB instances. */
+public void start( ){
+    super.start();
+  AND1.start();
+  AND2.start();
+  AND3.start();
+  PERMIT.start();
+}
+/** stop the FB instances. */
+public void stop( ){
+    super.stop();
+  AND1.stop();
+  AND2.stop();
+  AND3.stop();
+  PERMIT.stop();
+}
+/** kill the FB instances. */
+public void kill( ){
+    super.kill();
+  AND1.kill();
+  AND2.kill();
+  AND3.kill();
+  PERMIT.kill();
+}
+/** reset the FB instances. */
+public void reset( ){
+    super.reset();
+  AND1.reset();
+  AND2.reset();
+  AND3.reset();
+  PERMIT.reset();
+}
+/** {@inheritDoc}
+ * @param fbName {@inheritDoc}
+ * @param r {@inheritDoc}
+ * @throws FBRManagementException {@inheritDoc} */
+  public void initialize(String fbName, Resource r)
+  throws FBRManagementException{
+    super.initialize(fbName,r);
+    AND1.initialize("AND1",r);
+    AND2.initialize("AND2",r);
+    AND3.initialize("AND3",r);
+    PERMIT.initialize("PERMIT",r);
+}
+}
